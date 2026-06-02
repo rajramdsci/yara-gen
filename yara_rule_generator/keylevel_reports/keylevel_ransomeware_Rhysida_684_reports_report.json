@@ -1,0 +1,152 @@
+{
+  "statistics": {
+    "processing": {},
+    "signatures": {},
+    "reporting": {}
+  },
+  "target": {
+    "category": {},
+    "file": {}
+  },
+  "detections": {
+    "[0]": {
+      "family": {},
+      "details": {}
+    }
+  },
+  "procdump": {
+    "[0]": {
+      "name": {},
+      "path": {},
+      "guest_paths": {},
+      "size": {},
+      "crc32": {},
+      "md5": {},
+      "sha1": {},
+      "sha256": {},
+      "sha512": {},
+      "rh_hash": {},
+      "ssdeep": {},
+      "type": {},
+      "yara": {},
+      "cape_yara": {},
+      "clamav": {},
+      "tlsh": {},
+      "sha3_384": {},
+      "pe": {},
+      "data": {},
+      "strings": {},
+      "virustotal": {},
+      "cape_type_code": {},
+      "cape_type": {},
+      "process_path": {},
+      "process_name": {},
+      "module_path": {},
+      "pid": {}
+    }
+  },
+  "dropped": {
+    "[0]": {
+      "name": {},
+      "path": {},
+      "guest_paths": {},
+      "size": {},
+      "crc32": {},
+      "md5": {},
+      "sha1": {},
+      "sha256": {},
+      "sha512": {},
+      "rh_hash": {},
+      "ssdeep": {},
+      "type": {},
+      "yara": {},
+      "cape_yara": {},
+      "clamav": {},
+      "tlsh": {},
+      "sha3_384": {},
+      "data": {},
+      "strings": {},
+      "virustotal": {},
+      "cape_type_code": {},
+      "cape_type": {},
+      "pid": {}
+    }
+  },
+  "CAPE": {
+    "payloads": {},
+    "configs": {}
+  },
+  "info": {
+    "version": {},
+    "started": {},
+    "ended": {},
+    "duration": {},
+    "id": {},
+    "category": {},
+    "custom": {},
+    "machine": {},
+    "package": {},
+    "timeout": {},
+    "tlp": {},
+    "parent_sample": {},
+    "options": {},
+    "source_url": {},
+    "route": {},
+    "user_id": {},
+    "CAPE_current_commit": {}
+  },
+  "behavior": {
+    "processes": {},
+    "anomaly": {},
+    "processtree": {},
+    "summary": {},
+    "enhanced": {},
+    "encryptedbuffers": {}
+  },
+  "debug": {
+    "log": {},
+    "errors": {}
+  },
+  "network": {
+    "pcap_sha256": {},
+    "hosts": {},
+    "domains": {},
+    "tcp": {},
+    "udp": {},
+    "icmp": {},
+    "http": {},
+    "dns": {},
+    "smtp": {},
+    "irc": {},
+    "dead_hosts": {}
+  },
+  "url_analysis": {},
+  "tracee": "scalar",
+  "procmemory": {
+    "[list]": []
+  },
+  "signatures": {
+    "[0]": {
+      "name": {},
+      "description": {},
+      "categories": {},
+      "severity": {},
+      "weight": {},
+      "confidence": {},
+      "references": {},
+      "data": {},
+      "new_data": {},
+      "alert": {},
+      "families": {}
+    }
+  },
+  "malscore": "scalar",
+  "ttps": {
+    "[0]": {
+      "signature": {},
+      "ttps": {},
+      "mbcs": {}
+    }
+  },
+  "malstatus": "scalar"
+}
