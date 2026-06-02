@@ -1,4 +1,4 @@
 # Core dependencies for YARA Rule Generator Project
-json
+
 # No heavy packages needed - pure Python + subprocess for yara CLI
 # Add more later if you extend the project
