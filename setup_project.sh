@@ -13,6 +13,7 @@ mkdir -p \
     src \
     input_reports \
     trimmed_reports \
+    keylevel_reports\
     design_docs \
     yara_rules \
     malware_samples \

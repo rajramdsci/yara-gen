@@ -40,7 +40,7 @@ def extract_key_levels(input_path: str, output_path: str):
 def process_all_keylevel_reports():
     """Process all reports in input_reports folder"""
     input_dir = "input_reports"
-    output_dir = "trimmed_reports"
+    output_dir = "keylevel_reports"
     
     if not os.path.exists(input_dir):
         print("⚠️ input_reports folder not found!")
