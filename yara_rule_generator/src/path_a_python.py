@@ -69,7 +69,7 @@ any of them
 
 
 **Notes:** {entry['Remarks']}
-**Relevance detection potential:** {entry['Relevance detection potential']}
+**Relevance detection potential:** {entry['Relevance-detection-potential']}
 """
 
     design_content += """
