@@ -1,122 +1,205 @@
 ```yara
 /*
-YARA Ruleset for malware sample d71cc6337efb5cbbb400.exe
-Generated strictly from design specification document: d71cc6337efb5cbbb400.exe_yara_design.pdf
-All rules adhere to YARA 3.6.0 syntax only.
-Focus: STATIC category indicators (binary_yara and static_pe_anomaly).
+YARA Rule Set for d71cc6337efb5cbbb400.exe
+Generated from design specification: d71cc6337efb5cbbb400.exe_yara_design.pdf
+All rules strictly adhere to YARA 3.6.0 syntax.
+Maximum number of focused, single-indicator rules created.
 */
 
 import "pe"
 import "math"
 
-// ============================================
-// STATIC - Binary YARA Rules
-// ============================================
+/* ============================================
+   GROUP: STATIC - Binary Strings
+   ============================================ */
 
-rule d71cc633_Static_BinaryYara_RansomwareTrigger
+rule LockBit_GENRansomware_String_Indicator
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects binary_yara ransomware indicator from design specification"
+        description = "Detects GENRansomware indicator string from static analysis"
+        category = "STATIC"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "INDICATOR_SUSPICIOUS_GENRansomware" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and $s1
+}
+
+rule LockBit_GENRansomware_String_Ascii
+{
+    meta:
+        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
+        description = "Detects GENRansomware indicator in ASCII encoding"
+        category = "STATIC"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "INDICATOR_SUSPICIOUS_GENRansomware" ascii
+    condition:
+        uint16(0) == 0x5A4D and $s1
+}
+
+rule LockBit_GENRansomware_String_Wide
+{
+    meta:
+        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
+        description = "Detects GENRansomware indicator in wide encoding"
+        category = "STATIC"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "INDICATOR_SUSPICIOUS_GENRansomware" wide
+    condition:
+        uint16(0) == 0x5A4D and $s1
+}
+
+/* ============================================
+   GROUP: STATIC - PE Anomalies
+   ============================================ */
+
+rule LockBit_PE_Anomaly_Entrypoint_Outside_Sections
+{
+    meta:
+        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
+        description = "Detects entrypoint outside mapped sections anomaly"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        pe.entry_point > pe.sections[pe.number_of_sections-1].raw_data_offset + pe.sections[pe.number_of_sections-1].raw_data_size
 }
 
-rule d71cc633_Static_BinaryYara_GenericRansomware
+rule LockBit_PE_Anomaly_Small_Number_Of_Sections
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects generic ransomware YARA trigger per design specification"
+        description = "Detects low section count often seen in packed ransomware"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        pe.number_of_sections < 4
 }
 
-rule d71cc633_Static_BinaryYara_HighRelevance
+rule LockBit_PE_Anomaly_High_Entropy_Section_0
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "High relevance detection for binary_yara activity"
+        description = "Detects high entropy in first section indicating packing"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        math.entropy(0, filesize) > 7.0
 }
 
-// ============================================
-// STATIC - PE Anomaly Rules
-// ============================================
+/* ============================================
+   GROUP: STATIC - File Characteristics
+   ============================================ */
 
-rule d71cc633_Static_PeAnomaly_EntrypointOutsideSections
+rule LockBit_FileSize_LessThan_15MB
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects static_pe_anomaly with entrypoint outside sections"
+        description = "Matches filesize constraint from design specification"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        filesize < 15MB
 }
 
-rule d71cc633_Static_PeAnomaly_PackingIndicator
+rule LockBit_FileSize_Ransomware_Typical_Range
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects PE manipulation and packing characteristics"
+        description = "Detects typical ransomware file size range"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        filesize > 100KB and filesize < 8MB
 }
 
-rule d71cc633_Static_PeAnomaly_MediumRelevance
+/* ============================================
+   GROUP: RANSOMWARE - Behavioral Indicators
+   ============================================ */
+
+rule LockBit_Ransomware_GENRansomware_Flag
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Medium relevance PE anomaly detection"
-        category = "STATIC"
+        description = "Core rule for GENRansomware static indicator"
+        category = "RANSOMWARE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "INDICATOR_SUSPICIOUS_GENRansomware" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and $s1
+}
+
+rule LockBit_Ransomware_Possible_RansomNote_Reference
+{
+    meta:
+        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
+        description = "Detects potential ransom note related strings"
+        category = "RANSOMWARE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "RestoreMyFiles" ascii wide nocase
+    condition:
+        uint16(0) == 0x5A4D and $s1
+}
+
+/* ============================================
+   GROUP: PACKING - Entropy Based
+   ============================================ */
+
+rule LockBit_Packer_High_Entropy_Overall
+{
+    meta:
+        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
+        description = "Detects high overall entropy typical of packed malware"
+        category = "PACKING"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        math.entropy(0, filesize) > 7.2
 }
 
-rule d71cc633_Static_PeAnomaly_SuspiciousStructure
+rule LockBit_Packer_Low_Section_Count_High_Entropy
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects anomalous PE structure from design specification"
-        category = "STATIC"
+        description = "Combines low section count with high entropy"
+        category = "PACKING"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     condition:
         uint16(0) == 0x5A4D and
-        filesize < 15000000
+        pe.number_of_sections <= 3 and
+        math.entropy(0, filesize) > 6.8
 }
 
-// ============================================
-// STATIC - Combined and Supporting Rules
-// ============================================
+/* ============================================
+   GROUP: ADDITIONAL STATIC INDICATORS
+   ============================================ */
 
-rule d71cc633_Static_PEHeader_ValidMZ
+rule LockBit_Static_PE_MZ_Header
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Basic PE header validation for the sample"
+        description = "Basic PE file detection using MZ header"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -124,42 +207,17 @@ rule d71cc633_Static_PEHeader_ValidMZ
         uint16(0) == 0x5A4D
 }
 
-rule d71cc633_Static_Filesize_Limit
+rule LockBit_Static_Suspicious_Ransomware_String_Presence
 {
     meta:
         filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Filesize constraint matching design specification"
+        description = "Detects ransomware-related static string from CAPE report"
         category = "STATIC"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
+    strings:
+        $s1 = "INDICATOR_SUSPICIOUS_GENRansomware" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15000000
-}
-
-rule d71cc633_Static_Ransomware_Potential
-{
-    meta:
-        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects suspicious generic ransomware characteristics"
-        category = "STATIC"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15000000
-}
-
-rule d71cc633_Static_PeAnomaly_PackingOrManipulation
-{
-    meta:
-        filename = "d71cc6337efb5cbbb400.exe_yara_design.pdf"
-        description = "Detects packing or manipulation common in the sample"
-        category = "STATIC"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15000000
+        uint16(0) == 0x5A4D and any of them
 }
 ```

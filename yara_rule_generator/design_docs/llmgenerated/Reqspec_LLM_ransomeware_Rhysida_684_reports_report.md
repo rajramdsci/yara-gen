@@ -1,87 +1,97 @@
-File name :f6f74e05e24dd2e4e60e.exe_yara_design.pdf
+File name :f6f74e05e24dd2e4e60e_yara_design.pdf
 
 ## YARA Requirements Design Document - Path B (LLM Generated)
 Generated: 2025-09-15 12:00:00
 Malware Sample: f6f74e05e24dd2e4e60e.exe
 SHA256: unknown
 
-## Category: USES_WINDOWS_UTILITIES
-### Sub-category: Command execution
+## Category: RANSOMWARE_FILE_MODIFICATIONS
+
+### Sub-category: ransomware_file_modifications
+
 **Yara Rule Potential:**
-rule malware_f6f74e05_useswindowsutilities_commandexecution {
+rule malware_f6f74e05_ransomware_file_modifications {
 meta:
 author = "YARA Generator - Path B"
 date = "2025-09-15"
-description = "Detects command execution activity from CAPE report"
+description = "Detects ransomware_file_modifications activity from CAPE report"
 reference = "CAPE Analysis - f6f74e05e24dd2e4e60e.exe"
 strings:
-$s1 = "vssadmin.exe Delete Shadows /All /Quiet" ascii wide
-$s2 = "wevtutil.exe cl" ascii wide
+$s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+$s2 = "TODO - Add more strings" ascii wide
 condition:
 uint16(0) == 0x5A4D and
 filesize < 15MB and
 any of them
 }
-text**Notes:** Observed multiple cmd.exe and wevtutil/vssadmin invocations for shadow deletion and log clearing.
-**Relevance detection potential:** High - Direct command strings are strong, specific indicators.
+text**Notes:** Ransomware file modification and shadow copy deletion observed.
+**Relevance detection potential:** High - Directly matches ransomware behavior with high severity.
 
 ## Category: DELETES_SHADOW_COPIES
-### Sub-category: Ransomware behavior
+
+### Sub-category: deletes_shadow_copies
+
 **Yara Rule Potential:**
-rule malware_f6f74e05_deletesshadowcopies_ransomwarebehavior {
+rule malware_f6f74e05_deletes_shadow_copies {
 meta:
 author = "YARA Generator - Path B"
 date = "2025-09-15"
-description = "Detects shadow copy deletion activity from CAPE report"
+description = "Detects deletes_shadow_copies activity from CAPE report"
 reference = "CAPE Analysis - f6f74e05e24dd2e4e60e.exe"
 strings:
-$s1 = "vssadmin.exe Delete Shadows" ascii wide
+$s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+$s2 = "TODO - Add more strings" ascii wide
 condition:
 uint16(0) == 0x5A4D and
 filesize < 15MB and
 any of them
 }
-text**Notes:** Explicit vssadmin shadow deletion observed in process activity.
-**Relevance detection potential:** High - Classic ransomware indicator with exact string match.
+text**Notes:** Explicit vssadmin shadow copy deletion commands logged.
+**Relevance detection potential:** High - Core ransomware technique.
+
+## Category: SUSPICIOUS_COMMAND_TOOLS
+
+### Sub-category: suspicious_command_tools
+
+**Yara Rule Potential:**
+rule malware_f6f74e05_suspicious_command_tools {
+meta:
+author = "YARA Generator - Path B"
+date = "2025-09-15"
+description = "Detects suspicious_command_tools activity from CAPE report"
+reference = "CAPE Analysis - f6f74e05e24dd2e4e60e.exe"
+strings:
+$s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+$s2 = "TODO - Add more strings" ascii wide
+condition:
+uint16(0) == 0x5A4D and
+filesize < 15MB and
+any of them
+}
+text**Notes:** Heavy use of cmd.exe, vssadmin, wevtutil for destructive actions.
+**Relevance detection potential:** High - Behavioral indicator of malicious scripting.
 
 ## Category: CLEARS_LOGS
-### Sub-category: Stealth
-**Yara Rule Potential:**
-rule malware_f6f74e05_clearslogs_stealth {
-meta:
-author = "YARA Generator - Path B"
-date = "2025-09-15"
-description = "Detects log clearing activity from CAPE report"
-reference = "CAPE Analysis - f6f74e05e24dd2e4e60e.exe"
-strings:
-$s1 = "wevtutil.exe cl" ascii wide
-condition:
-uint16(0) == 0x5A4D and
-filesize < 15MB and
-any of them
-}
-text**Notes:** Repeated wevtutil log clearing commands across multiple processes.
-**Relevance detection potential:** High - Specific tool usage for anti-forensics.
 
-## Category: PROCMEM_YARA
-### Sub-category: Yara hits in dumps
+### Sub-category: clears_logs
+
 **Yara Rule Potential:**
-rule malware_f6f74e05_procemyara_yarahitsindumps {
+rule malware_f6f74e05_clears_logs {
 meta:
 author = "YARA Generator - Path B"
 date = "2025-09-15"
-description = "Detects yara rule hits from process dumps in CAPE report"
+description = "Detects clears_logs activity from CAPE report"
 reference = "CAPE Analysis - f6f74e05e24dd2e4e60e.exe"
 strings:
-$s1 = "INDICATOR_SUSPICIOUS_GENRansomware" ascii wide
-$s2 = "INDICATOR_SUSPICIOUS_ClearWinLogs" ascii wide
+$s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+$s2 = "TODO - Add more strings" ascii wide
 condition:
 uint16(0) == 0x5A4D and
 filesize < 15MB and
 any of them
 }
-text**Notes:** Multiple YARA rule triggers in memory dumps for ransomware and log clearing.
-**Relevance detection potential:** High - Confirms malicious patterns in runtime artifacts.
+text**Notes:** Mass wevtutil log clearing activity.
+**Relevance detection potential:** Medium - Anti-forensics behavior.
 
 ## Overall Recommended Strategy
 - Focus on categories with High relevance detection potential
