@@ -8,6 +8,8 @@
 python-dotenv
 tiktoken
 xai-sdk
+pandas
+openpyxl
 
 # Optional / Nice to have
 rich          # Better console output (optional)

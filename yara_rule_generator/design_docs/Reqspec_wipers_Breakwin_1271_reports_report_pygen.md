@@ -1,7 +1,7 @@
 File name :wipers_Breakwin_1271_reports_report_yara_design.pdf
 
 ## YARA Requirements Design Document - Path A (Python Generated)
-Generated: 2026-06-08T20:46:40.780252
+Generated: 2026-06-08T20:52:35.831697
 Malware Sample: wipers_Breakwin_1271_reports_report
 SHA256: unknown
 

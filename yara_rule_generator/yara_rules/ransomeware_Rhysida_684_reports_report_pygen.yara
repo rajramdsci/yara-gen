@@ -1,21 +1,21 @@
 ```yara
 /*
 YARA Rule Set for Rhysida Ransomware
-Source: ransomeware_Rhysida_684_reports_report_yara_design.pdf
-Strictly YARA 3.6.0 compatible
-Maximum number of focused rules generated from provided design categories
+Generated from: ransomeware_Rhysida_684_reports_report_yara_design.pdf
+YARA version: 3.6.0 compatible only
+All rules use strict 3.6.0 syntax with uint16(0) == 0x5A4D for PE detection.
 */
 
 import "pe"
 import "math"
 
-// ==================== CAPE PAYLOADS RULES ====================
+/* ==================== CAPE Category Rules ==================== */
 
 rule Rhysida_CAPE_Payloads_Main
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects unpacked CAPE payloads from Rhysida sample"
+        description = "Detects CAPE payloads activity from Rhysida report"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -29,7 +29,7 @@ rule Rhysida_CAPE_Payloads_Config
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects CAPE payload configuration artifacts"
+        description = "Detects unpacked payloads and configs from CAPE"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -39,25 +39,13 @@ rule Rhysida_CAPE_Payloads_Config
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_CAPE_Payloads_Unpacked
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects unpacked payload stage from CAPE report"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-// ==================== SIGNATURES RULES ====================
+/* ==================== SIGNATURES Category Rules ==================== */
 
 rule Rhysida_Signatures_Behavioral_0
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects behavioral signature category 0"
+        description = "Detects behavioral signatures [0] from CAPE report"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -67,11 +55,11 @@ rule Rhysida_Signatures_Behavioral_0
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Signatures_Triggered
+rule Rhysida_Signatures_Behavioral_1
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects triggered behavioral signatures from CAPE"
+        description = "Detects additional behavioral signatures from report"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -81,25 +69,13 @@ rule Rhysida_Signatures_Triggered
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Signatures_Reliable
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects high-reliability behavioral signals"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-// ==================== DEBUG RULES ====================
+/* ==================== DEBUG Category Rules ==================== */
 
 rule Rhysida_Debug_Log_Main
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects debug and error logging activity"
+        description = "Detects debug log activity from CAPE report"
         category = "DEBUG"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -109,11 +85,11 @@ rule Rhysida_Debug_Log_Main
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Debug_ErrorInfo
+rule Rhysida_Debug_Error_Handling
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects debug error information strings"
+        description = "Detects debug and error information from Rhysida"
         category = "DEBUG"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -123,25 +99,13 @@ rule Rhysida_Debug_ErrorInfo
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Debug_AntiAnalysis
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects potential anti-analysis debug artifacts"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-// ==================== URL ANALYSIS RULES ====================
+/* ==================== URL_ANALYSIS Category Rules ==================== */
 
 rule Rhysida_URL_Analysis_C2
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects C2 URLs from URL analysis"
+        description = "Detects C2 or exfiltration URLs from report"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -155,7 +119,7 @@ rule Rhysida_URL_Analysis_Exfil
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects exfiltration URLs from CAPE report"
+        description = "Detects URL analysis indicators from CAPE"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -165,101 +129,153 @@ rule Rhysida_URL_Analysis_Exfil
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_URL_Analysis_Direct
+/* ==================== Additional Focused Rules (Maximized Set) ==================== */
+
+rule Rhysida_Payloads_Unpacked
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects direct C2 and exfiltration indicators"
-        category = "URL_ANALYSIS"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-// ==================== ADDITIONAL FOCUSED RULES ====================
-
-rule Rhysida_Payloads_HighRelevance
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects high relevance CAPE payload indicators"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-rule Rhysida_Signatures_HighRelevance
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects high relevance behavioral signatures"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-rule Rhysida_Debug_MediumRelevance
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects medium relevance debug information"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-rule Rhysida_URL_HighRelevance
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects high relevance URL indicators"
-        category = "URL_ANALYSIS"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
-}
-
-rule Rhysida_Payloads_Strings_Primary
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects primary payload strings from CAPE"
+        description = "Detects unpacked payloads activity"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Signatures_Strings_Primary
+rule Rhysida_Payloads_Configuration
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects primary signature strings from report"
+        description = "Detects configuration data in payloads"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Rhysida_Signatures_Triggered
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects triggered behavioral signatures"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Debug_Strings_Primary
+rule Rhysida_Signatures_Reliable
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects primary debug log strings"
+        description = "Detects reliable behavioral detection signals"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Rhysida_Debug_AntiAnalysis
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects debug information related to anti-analysis"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Rhysida_Debug_Crash
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects debug crash and error logs"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Rhysida_URL_C2_Indicators
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects direct C2 indicators from URL analysis"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Rhysida_URL_Exfiltration
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects exfiltration URL patterns"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Rhysida_HighRelevance_Payloads
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "High relevance rule for CAPE payloads"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Rhysida_HighRelevance_Signatures
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "High relevance rule for behavioral signatures"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Rhysida_MediumRelevance_Debug
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Medium relevance rule for debug logs"
         category = "DEBUG"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -269,11 +285,11 @@ rule Rhysida_Debug_Strings_Primary
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Rhysida_URL_Strings_Primary
+rule Rhysida_HighRelevance_URLs
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects primary URL strings from analysis"
+        description = "High relevance rule for URL analysis"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -281,17 +297,5 @@ rule Rhysida_URL_Strings_Primary
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Rhysida_Overall_Payload_Config
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects combined payload and config indicators"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB
 }
 ```

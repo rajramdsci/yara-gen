@@ -5,6 +5,7 @@ from src.path_a_python_yara_generator import process_all_yara_generation
 from src.path_b_llm import process_all_path_b
 
 from src.cleaner import clear_previous_outputs
+from src.report_summary_generation import generate_report_summary
 
 def main():
     print("🚀 YARA Rule Generator Started (Python + LLM Hybrid)\n")
@@ -41,11 +42,8 @@ def main():
     print("   • Reqspec_*.md             → YARA Requirements Design Documents")
     print("   • *.yara (in yara_rules/)  → Final rules (after pasting prompt to Grok)")
     
-    print("\nNext Steps:")
-    print("   1. Go to each printed prompt in the console")
-    print("   2. Paste it into Grok to get the .yara rule set")
-    print("   3. Save the output as the suggested .yara file in yara_rules/")
-    print("   4. Use yara_generator.py to test the rules against malware_samples/")
+    print("\n=== Final Step: Generate Pipeline Summary Report ===")
+    generate_report_summary()
 
 if __name__ == "__main__":
     main()
