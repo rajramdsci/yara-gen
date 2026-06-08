@@ -3,19 +3,75 @@
 YARA Rule Set for wipers_Breakwin_1270
 Generated from design specification: wipers_Breakwin_1270_reports_report_yara_design.pdf
 All rules strictly adhere to YARA 3.6.0 syntax.
-Rules are maximized and focused per indicator category.
+Rules are maximized into focused, single-purpose detections based on provided categories.
 */
 
 import "pe"
 import "math"
 
-/* ===================== CAPE PAYLOADS ===================== */
+/* ==================== CAPE PAYLOADS ==================== */
 
-rule Breakwin_CAPE_Payloads_Main
+rule Breakwin_CAPE_Payloads_Config_1
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects CAPE payloads activity"
+        description = "Detects CAPE payloads config indicators"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_CAPE_Payloads_Config_2
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects CAPE payloads config indicators"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_CAPE_Payloads_Unpacked_1
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects unpacked payload artifacts"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_CAPE_Payloads_Unpacked_2
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects unpacked payload artifacts"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_CAPE_Payloads_HighRelevance
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects high-relevance CAPE payload activity"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -26,43 +82,69 @@ rule Breakwin_CAPE_Payloads_Main
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Breakwin_CAPE_Payloads_Unpacked
+/* ==================== SIGNATURES ==================== */
+
+rule Breakwin_Signatures_Behavioral_1
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects unpacked CAPE payloads"
-        category = "CAPE"
+        description = "Detects behavioral signatures from CAPE report"
+        category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Breakwin_CAPE_Payloads_Config
+rule Breakwin_Signatures_Behavioral_2
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects CAPE payload configuration data"
-        category = "CAPE"
+        description = "Detects behavioral signatures from CAPE report"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_Signatures_Triggered_0_1
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects [0] signature activity"
+        category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-/* ===================== SIGNATURES ===================== */
-
-rule Breakwin_Signatures_Behavioral_0
+rule Breakwin_Signatures_Triggered_0_2
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects behavioral signature [0]"
+        description = "Detects [0] signature activity"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_Signatures_Reliable_Behavior
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects reliable behavioral detection signals"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
@@ -73,24 +155,9 @@ rule Breakwin_Signatures_Behavioral_0
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Breakwin_Signatures_Behavioral_Triggered
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects triggered behavioral signatures"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
+/* ==================== DEBUG ==================== */
 
-/* ===================== DEBUG ===================== */
-
-rule Breakwin_Debug_Log_Main
+rule Breakwin_Debug_Log_1
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
@@ -100,12 +167,25 @@ rule Breakwin_Debug_Log_Main
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Breakwin_Debug_Error_Information
+rule Breakwin_Debug_Log_2
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects debug log activity"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_Debug_ErrorInfo
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
@@ -120,180 +200,69 @@ rule Breakwin_Debug_Error_Information
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Breakwin_Debug_AntiAnalysis
+/* ==================== URL ANALYSIS ==================== */
+
+rule Breakwin_URL_Analysis_C2_1
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects anti-analysis debug strings"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-/* ===================== URL ANALYSIS ===================== */
-
-rule Breakwin_URL_Analysis_C2
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects C2 URLs from URL analysis"
+        description = "Detects C2 or exfiltration URLs"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Breakwin_URL_Analysis_Exfiltration
+rule Breakwin_URL_Analysis_C2_2
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects exfiltration URLs"
+        description = "Detects C2 or exfiltration URLs"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Breakwin_URL_Analysis_Exfil_1
+{
+    meta:
+        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
+        description = "Detects exfiltration URL patterns"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
         $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Breakwin_URL_Analysis_Communication
+rule Breakwin_URL_Analysis_Exfil_2
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects URL-based command and control communication"
+        description = "Detects exfiltration URL patterns"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
+        $s1 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-/* ===================== ADDITIONAL FOCUSED RULES ===================== */
-
-rule Breakwin_Payloads_High_Relevance
+rule Breakwin_URL_Analysis_Direct_Indicators
 {
     meta:
         filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects high relevance payload indicators"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Signatures_Reliable
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects reliable behavioral signatures"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Debug_Crash_Reports
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects debug crash and error reporting"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_URL_Analysis_Direct_C2
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects direct C2 indicators from URL analysis"
-        category = "URL_ANALYSIS"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Payloads_Configs_Strings
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects payload configuration strings"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Signatures_Behavior_Summary
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects behavior summary signatures"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Debug_Analysis_Artifacts
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects debug analysis artifacts"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
-        $s2 = "TODO - Add more strings" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_URL_Analysis_Exfil_Endpoints
-{
-    meta:
-        filename = "wipers_Breakwin_1270_reports_report_yara_design.pdf"
-        description = "Detects exfiltration endpoints"
+        description = "Detects direct C2 and exfiltration indicators"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"

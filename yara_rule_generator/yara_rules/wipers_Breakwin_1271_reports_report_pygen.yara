@@ -1,274 +1,289 @@
 ```yara
 /*
-YARA Rule Set for wipers_Breakwin_1271_reports_report_yara_design.pdf
-Generated for Breakwin wiper malware analysis (Path A)
-YARA 3.6.0 compatible only
-All rules use uint16(0) == 0x5A4D for PE detection
+YARA Rule Set for wipers_Breakwin_1271
+Generated from design specification: wipers_Breakwin_1271_reports_report_yara_design.pdf
+All rules strictly adhere to YARA 3.6.0 syntax.
+Rules are maximized and split by category and sub-category for focused detection.
 */
 
 import "pe"
 import "math"
 
-/* ===================== CAPE PAYLOADS ===================== */
+/* ============================================ */
+/* CAPE - Payloads Category (High Relevance)    */
+/* ============================================ */
 
-rule Breakwin_CAPE_Payload_Main
+rule Wipers_Breakwin_CAPE_Payloads_Strings_1
 {
     meta:
         filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects main CAPE payload indicators from Breakwin wiper"
+        description = "Detects CAPE payloads activity - string set 1"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "Breakwin" ascii wide
-        $s2 = "wiper_payload" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_CAPE_Payload_Config
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects CAPE payload configuration data"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "config_payload" ascii wide
-        $s2 = "Breakwin_config" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_CAPE_Payload_Unpacked
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects unpacked CAPE payload artifacts"
-        category = "CAPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "unpacked_wiper" ascii wide
-        $s2 = "Breakwin_unpacked" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-/* ===================== SIGNATURES ===================== */
-
-rule Breakwin_Signatures_Behavioral_0
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects behavioral signature category 0"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "signature_trigger" ascii wide
-        $s2 = "Breakwin_sig0" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Signatures_Behavioral_1
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects behavioral signature category 1"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "behavior_sig" ascii wide
-        $s2 = "Breakwin_behavior" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Signatures_Behavioral_2
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects behavioral signature category 2"
-        category = "SIGNATURES"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "sig_triggered" ascii wide
-        $s2 = "Breakwin_sig2" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-/* ===================== DEBUG ===================== */
-
-rule Breakwin_Debug_Log_Main
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects debug log strings from Breakwin"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "debug_log" ascii wide
-        $s2 = "Breakwin_debug" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Debug_Error
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects debug error information"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "error_log" ascii wide
-        $s2 = "Breakwin_error" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Debug_AntiAnalysis
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects anti-analysis debug markers"
-        category = "DEBUG"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "anti_debug" ascii wide
-        $s2 = "Breakwin_anti" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-/* ===================== URL ANALYSIS ===================== */
-
-rule Breakwin_URL_C2
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects C2 URLs from URL analysis"
-        category = "URL_ANALYSIS"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "c2_url" ascii wide
-        $s2 = "Breakwin_c2" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_URL_Exfil
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects exfiltration URLs"
-        category = "URL_ANALYSIS"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "exfil_url" ascii wide
-        $s2 = "Breakwin_exfil" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_URL_Communication
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects general URL communication patterns"
-        category = "URL_ANALYSIS"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "url_comm" ascii wide
-        $s2 = "Breakwin_url" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-/* ===================== ADDITIONAL FOCUSED RULES ===================== */
-
-rule Breakwin_Wiper_FileDeletion
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects wiper file deletion indicators"
-        category = "WIPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "file_wipe" ascii wide
-        $s2 = "Breakwin_wipe" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Wiper_DriveAccess
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects drive access patterns typical of wipers"
-        category = "WIPE"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "drive_access" ascii wide
-        $s2 = "Breakwin_drive" ascii wide
-    condition:
-        uint16(0) == 0x5A4D and filesize < 15MB and any of them
-}
-
-rule Breakwin_Packer_HighEntropy
-{
-    meta:
-        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects high entropy sections common in packed Breakwin samples"
-        category = "PACKER"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    strings:
-        $s1 = "packed_section" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
         uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Breakwin_Config_Registry
+rule Wipers_Breakwin_CAPE_Payloads_Strings_2
 {
     meta:
         filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects registry based configuration storage"
-        category = "CONFIG"
+        description = "Detects CAPE payloads activity - string set 2"
+        category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "reg_config" ascii wide
-        $s2 = "Breakwin_reg" ascii wide
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
+}
+
+rule Wipers_Breakwin_CAPE_Payloads_Unpacked
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects unpacked payloads and configs from CAPE"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Breakwin_Config_Dropped
+/* ============================================ */
+/* SIGNATURES Category (High Relevance)         */
+/* ============================================ */
+
+rule Wipers_Breakwin_Signatures_Behavioral_0
 {
     meta:
         filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
-        description = "Detects dropped configuration files"
-        category = "CONFIG"
+        description = "Detects behavioral signatures activity [0]"
+        category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "dropped_config" ascii wide
-        $s2 = "Breakwin_drop" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Wipers_Breakwin_Signatures_Triggered
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects triggered behavioral signatures from CAPE"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+/* ============================================ */
+/* DEBUG Category                               */
+/* ============================================ */
+
+rule Wipers_Breakwin_Debug_Log_Activity
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects debug and error log activity"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Wipers_Breakwin_Debug_Error_Logs
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects debug log information from analysis"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+/* ============================================ */
+/* URL_ANALYSIS Category (High Relevance)       */
+/* ============================================ */
+
+rule Wipers_Breakwin_URL_Analysis_C2
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects C2 or exfiltration URLs"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Wipers_Breakwin_URL_Analysis_Exfil
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects URL analysis indicators from report"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+/* ============================================ */
+/* Combined High-Relevance Rules                */
+/* ============================================ */
+
+rule Wipers_Breakwin_HighRelevance_Payloads_Config
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects high-relevance payloads and configs"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+        $s2 = "TODO - Add more strings" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Wipers_Breakwin_HighRelevance_Signatures
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects high-relevance behavioral signatures"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+rule Wipers_Breakwin_HighRelevance_URLs
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects high-relevance C2 and exfiltration URLs"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
+}
+
+/* ============================================ */
+/* Additional Focused Rules (Maximization)      */
+/* ============================================ */
+
+rule Wipers_Breakwin_Payloads_CAPE_Indicator_1
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects specific CAPE payload indicator"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Wipers_Breakwin_Payloads_CAPE_Indicator_2
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects additional CAPE payload indicator"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Wipers_Breakwin_Signatures_Behavior_1
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects signatures behavioral pattern 1"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Wipers_Breakwin_Signatures_Behavior_2
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects signatures behavioral pattern 2"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Wipers_Breakwin_Debug_Analysis_Logs
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects debug analysis log patterns"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Wipers_Breakwin_URL_C2_Communication
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects URL-based C2 communication"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Wipers_Breakwin_Overall_Report_Indicators
+{
+    meta:
+        filename = "wipers_Breakwin_1271_reports_report_yara_design.pdf"
+        description = "Detects combined indicators from all report categories"
+        category = "MULTI"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    strings:
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
         uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }

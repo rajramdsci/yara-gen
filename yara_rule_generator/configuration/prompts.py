@@ -30,30 +30,53 @@ When the design specification document is provided, generate the final, complete
 """
 # Add this to the existing prompts.py file
 
-YARA_DESIGN_SPEC_PROMPT = """You are a malware analyst, and you have received the report output of a malware analysis run in Cuckoo sandbox. The report is in JSON format. 
-Level 0 keys can be considered as Category, and Level 1 keys as Sub-category.
+# Updated Prompt for Path B (Design Spec Generation)
+YARA_DESIGN_SPEC_PROMPT = """You are a malware analyst. You have received a trimmed JSON report from a Cuckoo/CAPE sandbox analysis.
 
-You are expected to write a “Requirements specification document” that will be used to further write a YARA rule script.
+**YOUR TASK:**
+Create a **YARA Requirements Design Document** based on the trimmed JSON report.
 
-**Important Instructions:**
-- Generate ONLY the Requirements Specification Document.
-- Use the exact format shown in the sample below.
-- Do not add any extra explanation, introduction, or conclusion.
-- Output only in clean Markdown format.
+**OUTPUT FORMAT REQUIREMENTS (Follow Exactly):**
 
-**Sample Format:**
+- Start with this header:
+  File name :{sample_name}_yara_design.pdf
 
-**Category: File System**
+  ## YARA Requirements Design Document - Path B (LLM Generated)
+  Generated: [current datetime]
+  Malware Sample: [sample name]
+  SHA256: [sha if available, else unknown]
 
-*   **Sub-category:** File Creation
-    *   **Specific Indicator:** C:\\Users\\Administrator\\AppData\\Roaming\\CacheSystems created
-    *   **Yara Rule Potential:** -
-    *   **Remark:** Persistence mechanism, potentially a decoy.
+- Then for each relevant Category found in the JSON:
+  ## Category: CATEGORY_NAME (in uppercase)
 
-*   **Sub-category:** File Copy
-    *   **Specific Indicator:** fa1067... copied to ...
-    *   **Yara Rule Potential:** -
-    *   **Remark:** ...
+  ### Sub-category: Sub-category name
 
-Provide the output only in md format, and do not provide any other additional inference or explanation.
+  **Yara Rule Potential:**
+rule malware_{sample_short}{clean_category}{clean_subcategory} {
+meta:
+author = "YARA Generator - Path B"
+date = "YYYY-MM-DD"
+description = "Detects {sub} activity from CAPE report"
+reference = "CAPE Analysis - {sample_name}"
+strings:
+$s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
+$s2 = "TODO - Add more strings" ascii wide
+condition:
+uint16(0) == 0x5A4D and
+filesize < 15MB and
+any of them
+}
+text**Notes:** Brief remark about this category/sub-category.
+**Relevance detection potential:** High/Medium/Low - Short explanation why it is useful.
+
+- At the end, add:
+## Overall Recommended Strategy
+- Focus on categories with High relevance detection potential
+- Extract real strings from CAPE.payloads, behavior.summary, static.strings etc.
+- Feed this design document to Grok to generate final optimized .yara rule
+
+**Important:**
+- Only include categories that actually exist in the provided trimmed JSON.
+- Do not add any extra text, explanations, or conclusions outside this structure.
+- Output ONLY the markdown document.
 """

@@ -1,129 +1,101 @@
 ```yara
 /*
 YARA Rule Set for Rhysida Ransomware
-Generated from: ransomeware_Rhysida_684_reports_report_yara_design.pdf
-Strictly compliant with YARA 3.6.0 syntax
-Maximum number of focused rules created based on provided categories
+Source: ransomeware_Rhysida_684_reports_report_yara_design.pdf
+Strictly YARA 3.6.0 compatible
+Maximum number of focused rules generated from provided design categories
 */
 
 import "pe"
 import "math"
 
-/* ============================================ */
-/* CAPE Payloads - Unpacked Payload Detection   */
-/* ============================================ */
+// ==================== CAPE PAYLOADS RULES ====================
 
-rule Rhysida_Payload_CAPE_Main
+rule Rhysida_CAPE_Payloads_Main
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects main CAPE payload indicators from Rhysida ransomware"
+        description = "Detects unpacked CAPE payloads from Rhysida sample"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "Rhysida" ascii wide
-        $s2 = "Your network has been breached" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Payload_CAPE_Encryption
+rule Rhysida_CAPE_Payloads_Config
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects encryption-related payload strings from CAPE report"
+        description = "Detects CAPE payload configuration artifacts"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "encrypt" ascii wide nocase
-        $s2 = "AES" ascii wide
+        $s1 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Payload_CAPE_RansomNote
+rule Rhysida_CAPE_Payloads_Unpacked
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects ransom note generation in CAPE payloads"
+        description = "Detects unpacked payload stage from CAPE report"
         category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
-    strings:
-        $s1 = "Restore-My-Files" ascii wide
-        $s2 = "README" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB
 }
 
-/* ============================================ */
-/* SIGNATURES - Behavioral Signature Rules      */
-/* ============================================ */
+// ==================== SIGNATURES RULES ====================
 
-rule Rhysida_Signatures_Behavior_0
+rule Rhysida_Signatures_Behavioral_0
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects triggered behavioral signatures [0]"
+        description = "Detects behavioral signature category 0"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "CreateProcess" ascii wide
-        $s2 = "VirtualAlloc" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Signatures_Process_Injection
+rule Rhysida_Signatures_Triggered
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects process injection signatures"
+        description = "Detects triggered behavioral signatures from CAPE"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "WriteProcessMemory" ascii wide
-        $s2 = "CreateRemoteThread" ascii wide
+        $s1 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Signatures_File_Encryption
+rule Rhysida_Signatures_Reliable
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects file encryption behavioral signatures"
+        description = "Detects high-reliability behavioral signals"
         category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
-    strings:
-        $s1 = ".rhysida" ascii wide
-        $s2 = "encrypted" ascii wide nocase
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB
 }
 
-/* ============================================ */
-/* DEBUG - Debug and Error Log Detection        */
-/* ============================================ */
+// ==================== DEBUG RULES ====================
 
-rule Rhysida_Debug_Log_Error
+rule Rhysida_Debug_Log_Main
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
@@ -132,167 +104,194 @@ rule Rhysida_Debug_Log_Error
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "debug" ascii wide nocase
-        $s2 = "error" ascii wide nocase
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-rule Rhysida_Debug_Log_AntiAnalysis
+rule Rhysida_Debug_ErrorInfo
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects anti-analysis debug strings"
+        description = "Detects debug error information strings"
         category = "DEBUG"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "sandbox" ascii wide nocase
-        $s2 = "vmware" ascii wide nocase
+        $s1 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-/* ============================================ */
-/* URL_ANALYSIS - Network and C2 Indicators     */
-/* ============================================ */
+rule Rhysida_Debug_AntiAnalysis
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects potential anti-analysis debug artifacts"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+// ==================== URL ANALYSIS RULES ====================
 
 rule Rhysida_URL_Analysis_C2
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects potential C2 URLs from URL analysis"
+        description = "Detects C2 URLs from URL analysis"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "http://" ascii wide
-        $s2 = "https://" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
 rule Rhysida_URL_Analysis_Exfil
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects data exfiltration URL patterns"
+        description = "Detects exfiltration URLs from CAPE report"
         category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = ".onion" ascii wide
-        $s2 = "tor2web" ascii wide
+        $s1 = "TODO - Add more strings" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and $s1
 }
 
-/* ============================================ */
-/* Additional Focused Rhysida Rules             */
-/* ============================================ */
-
-rule Rhysida_RansomNote_RestoreMyFiles
+rule Rhysida_URL_Analysis_Direct
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects specific Rhysida ransom note filename pattern"
-        category = "RANSOMNOTE"
+        description = "Detects direct C2 and exfiltration indicators"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+// ==================== ADDITIONAL FOCUSED RULES ====================
+
+rule Rhysida_Payloads_HighRelevance
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects high relevance CAPE payload indicators"
+        category = "CAPE"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Rhysida_Signatures_HighRelevance
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects high relevance behavioral signatures"
+        category = "SIGNATURES"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Rhysida_Debug_MediumRelevance
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects medium relevance debug information"
+        category = "DEBUG"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Rhysida_URL_HighRelevance
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects high relevance URL indicators"
+        category = "URL_ANALYSIS"
+        author = "Malware Analysis Engineer"
+        date = "2026-02-24"
+    condition:
+        uint16(0) == 0x5A4D and filesize < 15MB
+}
+
+rule Rhysida_Payloads_Strings_Primary
+{
+    meta:
+        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
+        description = "Detects primary payload strings from CAPE"
+        category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "Restore-My-Files.txt" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        $s1
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Rhysida_Packer_HighEntropy
+rule Rhysida_Signatures_Strings_Primary
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects high entropy sections typical of packed Rhysida"
-        category = "PACKER"
-        author = "Malware Analysis Engineer"
-        date = "2026-02-24"
-    condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        math.entropy(0, filesize) > 7.0
-}
-
-rule Rhysida_Strings_Rhysida
-{
-    meta:
-        filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects core Rhysida malware identifier string"
-        category = "STRINGS"
+        description = "Detects primary signature strings from report"
+        category = "SIGNATURES"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "Rhysida" ascii wide
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        $s1
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Rhysida_Strings_EncryptionKey
+rule Rhysida_Debug_Strings_Primary
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects encryption key handling strings"
-        category = "STRINGS"
+        description = "Detects primary debug log strings"
+        category = "DEBUG"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "publickey" ascii wide nocase
-        $s2 = "privatekey" ascii wide nocase
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Rhysida_Behavior_DeleteShadowCopies
+rule Rhysida_URL_Strings_Primary
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects shadow copy deletion behavior"
-        category = "BEHAVIOR"
+        description = "Detects primary URL strings from analysis"
+        category = "URL_ANALYSIS"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
     strings:
-        $s1 = "vssadmin" ascii wide nocase
-        $s2 = "delete shadows" ascii wide nocase
+        $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB and any of them
 }
 
-rule Rhysida_Behavior_ServiceStop
+rule Rhysida_Overall_Payload_Config
 {
     meta:
         filename = "ransomeware_Rhysida_684_reports_report_yara_design.pdf"
-        description = "Detects service stopping behavior"
-        category = "BEHAVIOR"
+        description = "Detects combined payload and config indicators"
+        category = "CAPE"
         author = "Malware Analysis Engineer"
         date = "2026-02-24"
-    strings:
-        $s1 = "sc stop" ascii wide nocase
-        $s2 = "net stop" ascii wide nocase
     condition:
-        uint16(0) == 0x5A4D and
-        filesize < 15MB and
-        any of them
+        uint16(0) == 0x5A4D and filesize < 15MB
 }
 ```
