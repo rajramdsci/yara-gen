@@ -1,0 +1,6 @@
+# Exclude the virtual environment folder
+yaravenv/
+
+# Exclude environment configuration files containing secrets
+.env
+.env.*
