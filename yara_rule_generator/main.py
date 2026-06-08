@@ -4,8 +4,13 @@ from src.path_a_python import process_all_design_docs
 from src.path_a_python_yara_generator import process_all_yara_generation
 from src.path_b_llm import process_all_path_b
 
+from src.cleaner import clear_previous_outputs
+
 def main():
     print("🚀 YARA Rule Generator Started (Python + LLM Hybrid)\n")
+
+    print(" Clear any previous outputs of run ")
+    clear_previous_outputs()   # ← Call here at the beginning
     
     print("=== Step 1: Key Level Extraction (Level 0 + Level 1 Keys Only) ===")
     process_all_keylevel_reports()
@@ -25,6 +30,9 @@ def main():
     # call this function to generate requirements spec documents by using trimmed json directly over a prompt to grok. 
     process_all_path_b()
 
+    #print("\n=== Step 6: Path B - Generate YARA from  LLM Design Spec  ===")
+    # call this function to generate requirements spec documents by using trimmed json directly over a prompt to grok. 
+    #process_all_path_b()
 
     print("\n✅ Full Pipeline (Path A) Completed Successfully!")
     print("\nGenerated Files:")
