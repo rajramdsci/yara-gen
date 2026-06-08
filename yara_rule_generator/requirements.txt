@@ -2,3 +2,12 @@
 
 # No heavy packages needed - pure Python + subprocess for yara CLI
 # Add more later if you extend the project
+# YARA Rule Generator Project - Requirements
+
+# Core dependencies
+python-dotenv
+tiktoken
+xai-sdk
+
+# Optional / Nice to have
+rich          # Better console output (optional)
