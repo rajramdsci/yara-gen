@@ -101,6 +101,7 @@ def process_all_yara_generation():
         if filename.startswith("Reqspec_") and filename.endswith(".md"):
             design_path = os.path.join(input_dir, filename)
             base_name = filename.replace("Reqspec_", "").replace(".md", "")
+            #base_name=base_name.join("_pyspec")
             yara_path = os.path.join(output_dir, f"{base_name}.yara")
             
             if generate_yara_from_design(design_path, yara_path):

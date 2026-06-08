@@ -1,7 +1,7 @@
 from src.preprocessor import process_all_reports
 from src.keylevelextractor import process_all_keylevel_reports
 from src.path_a_python import process_all_design_docs
-from src.path_a_yara_generator import process_all_yara_generation
+from src.path_a_python_yara_generator import process_all_yara_generation
 
 def main():
     print("🚀 YARA Rule Generator Started (Python + LLM Hybrid)\n")

@@ -1,7 +1,7 @@
 File name :ransomeware_Rhysida_684_reports_report_yara_design.pdf
 
 ## YARA Requirements Design Document - Path A (Python Generated)
-Generated: 2026-06-07T22:10:41.558547
+Generated: 2026-06-08T17:25:50.811475
 Malware Sample: ransomeware_Rhysida_684_reports_report
 SHA256: unknown
 
@@ -13,7 +13,7 @@ SHA256: unknown
         rule malware_ransomeware__cape_payloads {
 meta:
 author = "YARA Generator - Path A"
-date = "2026-06-07"
+date = "2026-06-08"
 description = "Detects payloads activity from CAPE report"
 reference = "CAPE Analysis - ransomeware_Rhysida_684_reports_report"
 strings:
@@ -36,7 +36,7 @@ any of them
         rule malware_ransomeware__signatures_0 {
 meta:
 author = "YARA Generator - Path A"
-date = "2026-06-07"
+date = "2026-06-08"
 description = "Detects [0] activity from CAPE report"
 reference = "CAPE Analysis - ransomeware_Rhysida_684_reports_report"
 strings:
@@ -59,7 +59,7 @@ any of them
         rule malware_ransomeware__debug_log {
 meta:
 author = "YARA Generator - Path A"
-date = "2026-06-07"
+date = "2026-06-08"
 description = "Detects log activity from CAPE report"
 reference = "CAPE Analysis - ransomeware_Rhysida_684_reports_report"
 strings:
@@ -82,7 +82,7 @@ any of them
         rule malware_ransomeware__url_analysis_urls {
 meta:
 author = "YARA Generator - Path A"
-date = "2026-06-07"
+date = "2026-06-08"
 description = "Detects urls activity from CAPE report"
 reference = "CAPE Analysis - ransomeware_Rhysida_684_reports_report"
 strings:

@@ -102,7 +102,7 @@ def process_all_design_docs():
         if filename.startswith("trim_") and filename.endswith(".json"):
             input_path = os.path.join(input_dir, filename)
             base_name = filename.replace("trim_", "").replace(".json", "")
-            output_filename = f"Reqspec_{base_name}.md"
+            output_filename = f"Reqspec_{base_name}_pygen.md"
             output_path = os.path.join(output_dir, output_filename)
             
             generate_design_document(input_path, output_path)
