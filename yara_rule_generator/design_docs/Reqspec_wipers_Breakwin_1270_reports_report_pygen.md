@@ -1,8 +1,8 @@
-File name :wipers_Breakwin_1271_reports_report_yara_design.pdf
+File name :wipers_Breakwin_1270_reports_report_yara_design.pdf
 
 ## YARA Requirements Design Document - Path A (Python Generated)
-Generated: 2026-06-08T17:25:50.811916
-Malware Sample: wipers_Breakwin_1271_reports_report
+Generated: 2026-06-08T17:45:40.245199
+Malware Sample: wipers_Breakwin_1270_reports_report
 SHA256: unknown
 
 
@@ -15,7 +15,7 @@ meta:
 author = "YARA Generator - Path A"
 date = "2026-06-08"
 description = "Detects payloads activity from CAPE report"
-reference = "CAPE Analysis - wipers_Breakwin_1271_reports_report"
+reference = "CAPE Analysis - wipers_Breakwin_1270_reports_report"
 strings:
 $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
 $s2 = "TODO - Add more strings" ascii wide
@@ -38,7 +38,7 @@ meta:
 author = "YARA Generator - Path A"
 date = "2026-06-08"
 description = "Detects [0] activity from CAPE report"
-reference = "CAPE Analysis - wipers_Breakwin_1271_reports_report"
+reference = "CAPE Analysis - wipers_Breakwin_1270_reports_report"
 strings:
 $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
 $s2 = "TODO - Add more strings" ascii wide
@@ -61,7 +61,7 @@ meta:
 author = "YARA Generator - Path A"
 date = "2026-06-08"
 description = "Detects log activity from CAPE report"
-reference = "CAPE Analysis - wipers_Breakwin_1271_reports_report"
+reference = "CAPE Analysis - wipers_Breakwin_1270_reports_report"
 strings:
 $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
 $s2 = "TODO - Add more strings" ascii wide
@@ -84,7 +84,7 @@ meta:
 author = "YARA Generator - Path A"
 date = "2026-06-08"
 description = "Detects urls activity from CAPE report"
-reference = "CAPE Analysis - wipers_Breakwin_1271_reports_report"
+reference = "CAPE Analysis - wipers_Breakwin_1270_reports_report"
 strings:
 $s1 = "TODO - Add relevant string from trimmed report or CAPE payloads" ascii wide
 $s2 = "TODO - Add more strings" ascii wide
