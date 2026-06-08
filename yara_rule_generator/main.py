@@ -30,9 +30,9 @@ def main():
     # call this function to generate requirements spec documents by using trimmed json directly over a prompt to grok. 
     process_all_path_b()
 
-    #print("\n=== Step 6: Path B - Generate YARA from  LLM Design Spec  ===")
+    print("\n=== Step 6: Path B - Generate YARA from  LLM Design Spec  ===")
     # call this function to generate requirements spec documents by using trimmed json directly over a prompt to grok. 
-    #process_all_path_b()
+    process_all_yara_generation("design_docs/llmgenerated","yara_rules/llmspecgen")
 
     print("\n✅ Full Pipeline (Path A) Completed Successfully!")
     print("\nGenerated Files:")

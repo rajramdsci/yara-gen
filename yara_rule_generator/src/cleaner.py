@@ -10,7 +10,8 @@ def clear_previous_outputs():
     folders_to_clear = [
         "trimmed_reports",
         "design_docs",
-        "yara_rules"
+        "yara_rules",
+        "design_docs/llmgenerated",
     ]
 
     for folder in folders_to_clear:
