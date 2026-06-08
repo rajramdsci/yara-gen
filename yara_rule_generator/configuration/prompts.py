@@ -28,3 +28,32 @@ A design specification document will be provided to you containing various obser
 
 When the design specification document is provided, generate the final, complete, maximized YARA rule set based on it using only YARA 3.6.0 syntax.
 """
+# Add this to the existing prompts.py file
+
+YARA_DESIGN_SPEC_PROMPT = """You are a malware analyst, and you have received the report output of a malware analysis run in Cuckoo sandbox. The report is in JSON format. 
+Level 0 keys can be considered as Category, and Level 1 keys as Sub-category.
+
+You are expected to write a “Requirements specification document” that will be used to further write a YARA rule script.
+
+**Important Instructions:**
+- Generate ONLY the Requirements Specification Document.
+- Use the exact format shown in the sample below.
+- Do not add any extra explanation, introduction, or conclusion.
+- Output only in clean Markdown format.
+
+**Sample Format:**
+
+**Category: File System**
+
+*   **Sub-category:** File Creation
+    *   **Specific Indicator:** C:\\Users\\Administrator\\AppData\\Roaming\\CacheSystems created
+    *   **Yara Rule Potential:** -
+    *   **Remark:** Persistence mechanism, potentially a decoy.
+
+*   **Sub-category:** File Copy
+    *   **Specific Indicator:** fa1067... copied to ...
+    *   **Yara Rule Potential:** -
+    *   **Remark:** ...
+
+Provide the output only in md format, and do not provide any other additional inference or explanation.
+"""

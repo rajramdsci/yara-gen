@@ -85,10 +85,10 @@ You are Grok 4 built by xAI."""))
         return False
 
 
-def process_all_yara_generation():
+def process_all_yara_generation(input_dir: str, output_dir: str):
     """Process all Reqspec_*.md files"""
-    input_dir = "design_docs"
-    output_dir = "yara_rules"
+   # input_dir = "design_docs"
+    # output_dir = "yara_rules"
     
     if not os.path.exists(input_dir):
         print("⚠️ design_docs folder not found!")
